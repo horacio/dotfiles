@@ -53,9 +53,6 @@ Put your customizations in dotfiles appended with `.local`:
 * `~/.vimrc.local`
 * `~/.vimrc.bundles.local`
 * `~/.zshrc.local`
-* ~/.git_template.local/hooks/post-checkout`
-* ~/.git_template.local/hooks/post-commit`
-* ~/.git_template.local/hooks/post-merge`
 
 For example, your `~/.aliases.local` might look like this:
 
@@ -117,7 +114,8 @@ configuration:
 * Adds a `merge-branch` alias to merge feature branches into master.
 * Adds an `up` alias to fetch and rebase `origin/master` into the feature
   branch. Use `git up -i` for interactive rebases.
-* Adds `post-{checkout,commit,merge}` hooks to re-index your ctags
+* Adds `post-{checkout,commit,merge}` hooks to re-index your ctags.
+  To extend your `git` hooks, create executable scripts in `~/.git_template.local/hooks/post-{commit,checkout,merge}`
 
 [Ruby](https://www.ruby-lang.org/en/) configuration:
 
