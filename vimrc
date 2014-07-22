@@ -146,7 +146,7 @@ nnoremap <C-l> <C-w>l
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
-if isdirectory("~/.vim/configs")
+if isdirectory(glob("~/.vim/configs"))
   let configs = split(glob("~/.vim/configs/*"), "\n")
   for filename in configs
     execute 'source ' filename
