@@ -75,5 +75,41 @@ export PATH=".git/safe/../../bin:$PATH"
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
 
+# extra files in ~/.zsh/configs/pre , ~/.zsh/configs , and ~/.zsh/configs/post
+# these are loaded first, second, and third, respectively.
+_load_settings() {
+  dir="$1"
+  if [ -d "$dir" ]; then
+    if [ -d "$dir/pre" ]; then
+      for config in `find -L $dir/pre -type f`; do
+        . $config
+      done
+    fi
+
+    for config in `find -L $dir -type f`; do
+      case "$config" in
+        "$dir"/pre/*)
+          :
+          ;;
+        "$dir"/post/*)
+          :
+          ;;
+        *)
+          if [ -f $config ]; then
+            . $config
+          fi
+          ;;
+      esac
+    done
+
+    if [ -d "$dir/post" ]; then
+      for config in `find -L $dir/post -type f`; do
+        . $config
+      done
+    fi
+  fi
+}
+_load_settings "$HOME/.zsh/configs"
+
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
