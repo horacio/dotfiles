@@ -146,11 +146,26 @@ nnoremap <C-l> <C-w>l
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
+" Load .vim/configs/pre, .vim/configs, and .vim/configs/post, in that order
 if isdirectory(glob("~/.vim/configs"))
+  if isdirectory(glob("~/.vim/configs/pre"))
+    for filename in split(glob("~/.vim/configs/pre/*"), "\n")
+      execute 'source ' filename
+    endfor
+  endif
+
   let configs = split(glob("~/.vim/configs/*"), "\n")
   for filename in configs
-    execute 'source ' filename
+    if stridx(filename, glob("~/.vim/configs/pre")) == -1 || stridx(filename, glob("~/.vim/configs/post")) == -1
+      execute 'source ' filename
+    endif
   endfor
+
+  if isdirectory(glob("~/.vim/configs/post"))
+    for filename in split(glob("~/.vim/configs/post/*"), "\n")
+      execute 'source ' filename
+    endfor
+  endif
 endif
 
 " Local config
