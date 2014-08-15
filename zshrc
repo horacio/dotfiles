@@ -34,7 +34,7 @@ HISTSIZE=4096
 SAVEHIST=4096
 
 # awesome cd movements from zshkit
-setopt autocd autopushd pushdminus pushdsilent pushdtohome cdablevars
+setopt autocd autopushd pushdminus pushdsilent pushdtohome
 DIRSTACKSIZE=5
 
 # Enable extended globbing
