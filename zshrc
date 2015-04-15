@@ -1,8 +1,8 @@
 # modify the prompt to contain git branch name if applicable
 git_prompt_info() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null)
-  if [[ -n $ref ]]; then
-    echo " %{$fg_bold[green]%}${ref#refs/heads/}%{$reset_color%}"
+  current_branch=$(git current-branch 2> /dev/null)
+  if [[ -n $current_branch ]]; then
+    echo " %{$fg_bold[green]%}$current_branch%{$reset_color%}"
   fi
 }
 setopt promptsubst
@@ -76,12 +76,12 @@ _load_settings() {
   _dir="$1"
   if [ -d "$_dir" ]; then
     if [ -d "$_dir/pre" ]; then
-      for config in "$_dir"/pre/**/(N-.); do
+      for config in "$_dir"/pre/**/*(N-.); do
         . $config
       done
     fi
 
-    for config in "$_dir"/**/(N-.); do
+    for config in "$_dir"/**/*(N-.); do
       case "$config" in
         "$_dir"/pre/*)
           :
@@ -98,7 +98,7 @@ _load_settings() {
     done
 
     if [ -d "$_dir/post" ]; then
-      for config in "$_dir"/post/**/(N-.); do
+      for config in "$_dir"/post/**/*(N-.); do
         . $config
       done
     fi
